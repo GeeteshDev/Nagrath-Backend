@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 const allowedOrigins = [
   'http://localhost:5173',                    // Local development
   'https://nagrath-frontend-ten.vercel.app' ,      // Vercel frontend URL
-  'https://nagrath-frontend-ten.vercel.app'
 ];
 
 // Configure CORS with dynamic origin checking

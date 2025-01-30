@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 // Define allowed origins
 const allowedOrigins = new Set([
-  'http://localhost:5173',                    // Local development
+ // 'http://localhost:5173',                    // Local development
   'https://nagrath-frontend-ten.vercel.app/'       // Vercel frontend URL
 ]);
 

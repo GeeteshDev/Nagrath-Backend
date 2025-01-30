@@ -19,6 +19,7 @@ const multiUpload = upload.fields([
 // Get all Patients for the logged-in admin
 const createPatient = async (req, res) => {
   try {
+    console.log("🔹 Incoming request to create patient", req.body);
     // Destructure basic patient information from req.body
     const {
       name, age, mobile, addressLine1, address, pincode, district, country,
@@ -26,7 +27,9 @@ const createPatient = async (req, res) => {
       bloodPressure, heartRate, calcium, fastingBloodSugar,
       bloodCbc, urineTest, lipidProfile, tshTest
     } = req.body;
-
+    
+   console.log("🔹 Checking uploaded files", req.files);
+    
     // Handle single photo file
     const photo = req.files && req.files['photo'] && req.files['photo'][0] ? {
       data: req.files['photo'][0].buffer,
@@ -41,6 +44,8 @@ const createPatient = async (req, res) => {
       }))
       : []; // Default to empty array if no documents are uploaded
 
+    console.log("✅ Processed photo and documents", { photo, documentFiles });
+
     // Create and save a new patient instance
     let newPatient = new Patient({
       admin: req.user._id,
@@ -52,9 +57,10 @@ const createPatient = async (req, res) => {
     });
 
     await newPatient.save(); // Save to generate _id
+    console.log("✅ New patient saved", newPatient._id);
 
     // Generate QR code for patient URL
-    const qrData = `${process.env.CLIENT_ORIGIN || 'https://nagrath-frontend.vercel.app'}/patients/${newPatient._id}`;
+    const qrData = `${process.env.CLIENT_ORIGIN || 'https://nagrath-frontend-ten.vercel.app'}/patients/${newPatient._id}`;
     try {
       const qrCode = await QRCode.toDataURL(qrData);
       newPatient.qrCode = qrCode;

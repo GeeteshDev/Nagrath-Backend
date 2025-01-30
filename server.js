@@ -20,28 +20,26 @@ app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 // Define allowed origins
-const allowedOrigins = [
+const allowedOrigins = new Set([
   'http://localhost:5173',                    // Local development
-  'https://nagrath-frontend-ten.vercel.app' ,      // Vercel frontend URL
-];
+  'https://nagrath-frontend-ten.vercel.app/'       // Vercel frontend URL
+]);
 
 // Configure CORS with dynamic origin checking
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.has(origin)) {
       callback(null, true);
     } else {
+      console.warn(`Blocked by CORS: ${origin}`);  // Log for debugging
       callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
 }));
 
-
-app.use(express.json());
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+// Handle preflight requests properly
+app.options('*', cors());  // Enables preflight for all routes
 
 // Super Admin Creation Logic
 const createSuperAdmin = async () => {

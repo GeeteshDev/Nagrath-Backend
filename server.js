@@ -22,6 +22,8 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 // CORS Configuration
 const allowedOrigins = new Set([
+  'https://nagrath-frontend-kohl.vercel.app',
+  // 'https://nagrath-frontend-kohl.vercel.app/'
   'http://localhost:5173',
   // 'https://nagrath-frontend-ten.vercel.app'
 ]);

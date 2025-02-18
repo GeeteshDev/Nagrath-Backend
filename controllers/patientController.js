@@ -113,7 +113,6 @@ const getPatientById = async (req, res) => {
   }
 };
 
-// const updatePatient = async (req, res) => {
 //   try {
 //     const { id } = req.params;
 //     const patient = await Patient.findById(id);
@@ -244,7 +243,7 @@ const getPatientQRCode = async (req, res) => {
     }
 
     // Define the public patient URL to encode in the QR code
-    const publicUrl = `${process.env.FRONTEND_URL || 'https://nagrath-frontend.vercel.app'}/public-patient/${patientId}`;
+    const publicUrl = `${process.env.FRONTEND_URL || 'https://nagrath-frontend-kohl.vercel.app'}/public-patient/${patientId}`;
 
     // Generate the QR code with the public URL
     const qrCodeDataUrl = await QRCode.toDataURL(publicUrl);

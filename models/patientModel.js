@@ -63,8 +63,9 @@ const patientSchema = mongoose.Schema(
         // Additional medical and personal data
         hemoglobin: {
             value: { type: String },
-            range: { type: String, default: '13.5-17.5' },
-            unit: { type: String, default: 'g/dl' }
+            range: { type: String },
+            unit: { type: String, default: 'g/dl' },
+            options: { type: [String], default: ['Male: 13.5-17.5', 'Female: 12-16'] }
         },
         bloodPressure: {
             value: { type: String },
@@ -97,7 +98,8 @@ const patientSchema = mongoose.Schema(
             packedCellVolume: {
                 value: { type: String },
                 unit: { type: String, default: '%' },
-                range: { type: String, default: '37.53' }
+                range: { type: String },
+                options: { type: [String], default: ['Male: 37-53', 'Female: 33-51'] }
             },
             meanCellVolume: {
                 value: { type: String },
